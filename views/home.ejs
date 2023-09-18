@@ -1,0 +1,8 @@
+<%- include('login_layout/header')  %>
+
+<section class="vh-100 bg-image" style="background-image: url('/IMG/download.jpeg');">
+  <a href="/logout-user" class="p-2 m-4 btn btn-outline-primary fas fa-logout">logout</a>
+  <h1 class="success p-5" style="color:green">Welcome <%= locals.user ? user : "user  " %></h1>
+</section>
+
+<%- include('login_layout/footer')  %>

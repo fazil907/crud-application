@@ -1,0 +1,162 @@
+<%- include('login_layout/header') %>
+
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-info text-white" style="border-radius: 1rem">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-1 mt-md-4 pb-3">
+              <p style="color: red"><%= message %></p>
+
+              <h2 class="fw-bold mb-2 text-uppercase">CREATE AN ACCOUNT</h2>
+              <!-- <p class="text-white-50 mb-5">Please enter your login and password!</p> -->
+
+              <form action="/signup" method="post" >
+                <div class="form-outline mb-3">
+                  <label class="form-label">Name</label>
+                  <input
+                    class="form-control form-control-lg"
+                    type="text"
+                    id="name"
+                    name="name"
+                  />
+                  <p class="text-danger" id="nameError"></p>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label">Email</label>
+                  <input
+                    class="form-control form-control-lg"
+                    type="email"
+                    id="email"
+                    name="email"
+                  />
+                  <p class="text-danger" id="emailError"></p>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label">Phone</label>
+                  <input
+                    class="form-control form-control-lg"
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                  />
+                  <p class="text-danger" id="phnoError"></p>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label">Password</label>
+                  <input
+                    class="form-control form-control-lg"
+                    type="password"
+                    id="password"
+                    name="password"
+                  />
+                  <p class="text-danger" id="psswdError"></p>
+                </div>
+
+                <!-- <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p> -->
+
+                <div>
+                  <button onclick="return validate()"
+                    class="btn btn-outline-light btn-lg px-5 mb-3"
+                    type="submit"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+
+                <div>
+                  <p class="mb-0">
+                    Already have an Account?<a
+                      href="/"
+                      class="text-white-50 fw-bold"
+                      >Login Here</a
+                    >
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function validate() {
+   
+    let name = document.getElementById("name").value;
+    let phno = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    reg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    email_result = reg.test(email);
+    let isValid = true;
+
+    document.getElementById("nameError").innerHTML = "";
+    document.getElementById("phnoError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("psswdError").innerHTML = "";
+
+    if (!name) {
+      document.getElementById("nameError").innerHTML = "Name is required.";
+      isValid = false;
+    } else if (name.trim() === "") {
+      document.getElementById("nameError").innerHTML = "Name is required.";
+      isValid = false;
+    }
+    if (name.trim().includes("  ")) {
+      document.getElementById("nameError").innerHTML =
+        "Invalid Naming, Unecessary spacing";
+      isValid = false;
+    }
+
+    if (phno.length !== 10 || phno.length > 10 || isNaN(phno)) {
+      document.getElementById("phnoError").innerHTML =
+        "Invalid phone number. Phone number must be 10 digits.";
+      isValid = false;
+    }
+    if (phno.trim().includes(" ")) {
+      document.getElementById("phnoError").innerHTML =
+        "No spacing in between Phone numbers.";
+    }
+
+    if (email.trim() === "") {
+      document.getElementById("emailError").innerHTML = "Email is required.";
+      isValid = false;
+    } else if (!email_result) {
+      document.getElementById("emailError").innerHTML = "Provide correct Email";
+      isValid = false;
+    }
+
+    if (password.length < 8) {
+      document.getElementById("psswdError").innerHTML =
+        "Password must be at least 8 characters.";
+      isValid = false;
+    }
+
+    if (!isValid) {
+      event.preventDefault();
+    }
+    return isValid;
+  }
+  const passwordInput = document.getElementById("password");
+  const showPasswordCheckbox = document.getElementById(
+    "show-password-checkbox"
+  );
+
+  // showPasswordCheckbox.addEventListener("change", function () {
+  //   if (this.checked) {
+  //     passwordInput.type = "text";
+  //   } else {
+  //     passwordInput.type = "password";
+  //   }
+  // });
+</script>
+
+<%- include('login_layout/footer') %>
